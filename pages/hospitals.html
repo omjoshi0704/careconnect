@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hospitals | Care Connect</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="../home.html"><span class="brand-icon">♥</span><span>Care Connect<small>Smart Healthcare Ecosystem</small></span></a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+  <nav class="desktop-nav"><a href="../home.html">Home</a><a href="doctors.html">Doctors</a><a class="active" href="hospitals.html">Hospitals</a><a href="ambulance.html">Emergency</a><a href="profile.html">Profile</a></nav>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../home.html">⌂ Home</a><a href="doctors.html">🩺 Doctors</a><a href="hospitals.html">🏥 Hospitals</a><a href="ambulance.html">🚑 Emergency</a><a href="pharmacy.html">💊 Pharmacy</a><a href="labs.html">🧪 Labs</a><a href="reports.html">📄 Records</a><a href="profile.html">👤 Profile</a>
+</div>
+<main>
+  <div class="page-title"><span class="label">Nearby care</span><h1 style="color:var(--ink)">Find a hospital</h1><p>Demo hospital directory with bed availability, distance and emergency services.</p></div>
+  <div class="content-grid">
+    <div class="doctor-list" id="hospitalList"></div>
+    <div class="map-box">
+      <div class="map-label" style="top:15px;left:15px">📍 Your demo location</div>
+      <div class="map-label" style="bottom:18px;right:15px">12 beds available nearby</div>
+      <div class="map-pin" style="top:42%;left:53%"><span>🏥</span></div>
+      <div class="map-pin" style="top:60%;left:30%;background:var(--teal)"><span>+</span></div>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand"><span class="brand-icon">♥</span>Care Connect</div>
+      <p>A student front-end project reimagining a connected healthcare experience — doctors, hospitals, pharmacy, labs and emergency ambulance care in one simple dashboard.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick links</h3>
+      <a href="doctors.html">Doctors</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="ambulance.html">Emergency</a>
+      <a href="pharmacy.html">Pharmacy</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact (demo)</h3>
+      <p>📍 Pusad, Maharashtra, India<br>✉ demo@careconnect.app<br>📞 +91 90000 00000</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Care Connect — front-end project prototype, not a real healthcare service. Built by <strong>Om Joshi</strong> as a college project.</div>
+</footer>
+</div>
+<script src="../js/data.js"></script><script src="../js/app.js"></script>
+<script>
+document.getElementById("hospitalList").innerHTML = hospitals.map(h => `
+  <div class="card" style="margin-bottom:0">
+    <h3>🏥 ${h.name}</h3>
+    <p>${h.services}</p>
+    <span class="status">${h.status}</span> <span class="tag">${h.beds}</span> <span class="tag">${h.eta}</span>
+    <div style="margin-top:14px"><a class="btn btn-primary" href="appointment.html">Book appointment</a></div>
+  </div>`).join("");
+</script>
+</body></html>
