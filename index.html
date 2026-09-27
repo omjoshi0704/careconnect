@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Care Connect</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">♥</div>
+    <h1>Care Connect</h1>
+    <p class="tagline">Your Health. Our Priority.</p>
+
+    <div class="auth-tabs">
+      <button type="button" class="active" id="tabLogin" onclick="switchTab('login')">Login</button>
+      <button type="button" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
+    <form id="loginForm" onsubmit="event.preventDefault(); window.location.href='home.html';">
+      <div class="field"><label>Phone number</label><input type="tel" placeholder="+91 9XXXXXXXXX" required></div>
+      <div class="field"><label>Password</label><input type="password" placeholder="Enter password" required></div>
+      <button class="btn btn-primary full" type="submit">Login</button>
+    </form>
+
+    <form id="signupForm" hidden onsubmit="event.preventDefault(); window.location.href='home.html';">
+      <div class="field"><label>Full name</label><input placeholder="Enter your name" required></div>
+      <div class="field"><label>Phone number</label><input type="tel" placeholder="+91 9XXXXXXXXX" required></div>
+      <div class="field"><label>Password</label><input type="password" placeholder="Create password" required></div>
+      <button class="btn btn-primary full" type="submit">Create account</button>
+    </form>
+
+    <p class="auth-fine">By continuing you agree to Care Connect's <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.</p>
+    <p class="auth-demo-note">This is a front-end demo — no real account is created.</p>
+  </div>
+</div>
+<script>
+function switchTab(which){
+  const isLogin = which === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('loginForm').hidden = !isLogin;
+  document.getElementById('signupForm').hidden = isLogin;
+}
+</script>
+</body>
+</html>
