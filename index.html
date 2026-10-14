@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0284c7">
+  <title>CareConnect | Secure Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root{--primary:#0284c7;--accent:#6366f1;--cyan:#38bdf8;--bg:#050b18;--card:rgba(11,20,38,.9);--border:rgba(56,189,248,.25);--muted:#94a3b8;--text:#f8fafc;--danger:#f87171;--success:#34d399}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Plus Jakarta Sans",sans-serif}
+    body{min-height:100vh;background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;padding:24px;overflow-x:hidden}
+    .background{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+    .orb{position:absolute;width:440px;height:440px;border-radius:50%;filter:blur(90px);opacity:.42;animation:float 16s ease-in-out infinite alternate}
+    .orb.one{background:#0284c7;top:-130px;left:-100px}.orb.two{background:#4f46e5;right:-120px;bottom:-150px;animation-duration:21s}.orb.three{width:300px;height:300px;background:#0891b2;left:42%;top:40%;animation-duration:18s}
+    .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(56,189,248,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,#000 25%,transparent 78%)}
+    @keyframes float{to{transform:translate(55px,45px) scale(1.12)}}
+    .layout{position:relative;z-index:1;width:min(1080px,100%);min-height:640px;display:grid;grid-template-columns:1fr .88fr;border:1px solid var(--border);border-radius:26px;background:var(--card);backdrop-filter:blur(22px);box-shadow:0 30px 90px #0009;overflow:hidden}
+    .visual{padding:42px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);background:linear-gradient(145deg,#0284c720,#6366f114)}
+    .brand{display:flex;align-items:center;gap:13px;font-size:25px;font-weight:800}.brand-icon{height:48px;width:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--accent));box-shadow:0 0 30px #38bdf855;font-size:22px}
+    .eyebrow{color:var(--muted);font-size:12px;letter-spacing:1.6px;margin:12px 0 0}
+    .hero-art{height:290px;position:relative;display:grid;place-items:center}
+    .ring{position:absolute;border:1px dashed #38bdf866;border-radius:50%;width:245px;height:245px;animation:spin 25s linear infinite}.ring.r2{width:300px;height:190px;transform:rotateX(60deg);border-color:#818cf866;animation-direction:reverse}
+    @keyframes spin{to{rotate:360deg}}
+    .heart{height:100px;width:100px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--cyan),var(--accent));font-size:40px;box-shadow:0 0 60px #38bdf899}
+    .float-card{position:absolute;background:#0b1426e8;border:1px solid var(--border);padding:12px 15px;border-radius:14px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 28px #0005;font-size:12px}
+    .float-card.top{top:25px;left:0}.float-card.bottom{bottom:18px;right:0}.float-card i{font-size:18px;color:var(--cyan)}
+    .visual-foot{color:var(--muted);font-size:12px;line-height:1.7;text-align:center}.pulse{height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);margin-bottom:15px}
+    .form-panel{padding:42px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+    .tabs{display:flex;gap:5px;padding:5px;border:1px solid var(--border);border-radius:13px;background:#050b1880;margin-bottom:26px}
+    .tab{flex:1;padding:12px 8px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-weight:700;cursor:pointer;transition:.2s}
+    .tab.active{background:linear-gradient(135deg,#0284c766,#6366f166);color:white;box-shadow:inset 0 0 0 1px #38bdf866}
+    h1{font-size:27px;letter-spacing:-.7px;margin-bottom:7px}.subtitle{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:24px}
+    .field{margin-bottom:15px}.field label{display:block;color:#cbd5e1;font-size:12px;font-weight:700;margin-bottom:7px}
+    .input-wrap{position:relative}.input-wrap>i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748b;pointer-events:none}
+    input,select{width:100%;padding:13px 42px;background:#142038b3;border:1px solid #38bdf83b;border-radius:11px;color:#f8fafc;font-size:13px;outline:none;transition:.2s}
+    input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #38bdf822}input::placeholder{color:#718096}select option{background:#0b1426;color:white}
+    .toggle-password{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#94a3b8;padding:6px;cursor:pointer}
+    .row-between{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 15px;font-size:12px;color:var(--muted)}
+    .remember{display:flex;align-items:center;gap:8px}.remember input{width:auto;accent-color:var(--primary)}
+    .link{border:0;background:none;color:var(--cyan);font-weight:700;font-size:12px;cursor:pointer}.link:hover{text-decoration:underline}
+    .primary{width:100%;padding:14px;border:0;border-radius:11px;background:linear-gradient(135deg,#0284c7,#6366f1);color:white;font-weight:800;font-size:14px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:10px;box-shadow:0 10px 25px #0284c744;transition:.2s}
+    .primary:hover{transform:translateY(-1px);box-shadow:0 14px 30px #6366f155}.primary:disabled{opacity:.6;cursor:wait;transform:none}
+    .message{min-height:20px;margin-top:12px;text-align:center;font-size:12px;line-height:1.5}.message.error{color:var(--danger)}.message.success{color:var(--success)}
+    .security-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-top:18px}
+    .hidden{display:none!important}
+    .modal{position:fixed;inset:0;z-index:10;background:#020617d9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}
+    .modal-card{width:min(420px,100%);background:#0b1426;border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 25px 70px #0009;position:relative}
+    .close{position:absolute;right:16px;top:12px;background:none;border:0;color:var(--muted);font-size:25px;cursor:pointer}.modal-card h2{font-size:22px;margin-bottom:8px}.modal-card p{font-size:12px;line-height:1.6;color:var(--muted);margin-bottom:20px}
+    @media(max-width:850px){.layout{grid-template-columns:1fr;max-width:500px;min-height:0}.visual{display:none}.form-panel{padding:32px 25px}}
+    @media(max-width:420px){body{padding:12px}.form-panel{padding:26px 18px}h1{font-size:24px}.row-between{align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="background" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div><div class="grid-bg"></div></div>
+  <main class="layout">
+    <section class="visual" aria-label="CareConnect introduction">
+      <div><div class="brand"><span class="brand-icon"><i class="fa-solid fa-heart-pulse"></i></span><span>CareConnect</span></div><p class="eyebrow">CONNECTED CARE. BETTER OUTCOMES.</p></div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="ring"></div><div class="ring r2"></div><div class="heart"><i class="fa-solid fa-staff-snake"></i></div>
+        <div class="float-card top"><i class="fa-solid fa-shield-heart"></i><span><b>Care, connected</b><br><span style="color:#94a3b8">One place for health services</span></span></div>
+        <div class="float-card bottom"><i class="fa-solid fa-calendar-check"></i><span><b>Simple appointments</b><br><span style="color:#94a3b8">Manage your care online</span></span></div>
+      </div>
+      <div class="visual-foot"><div class="pulse"></div>Access healthcare services through one convenient portal.<br>For emergencies, contact local emergency services directly.</div>
+    </section>
+
+    <section class="form-panel">
+      <div class="tabs" role="tablist" aria-label="Account access">
+        <button type="button" class="tab active" id="tabLogin" role="tab" aria-selected="true">Sign In</button>
+        <button type="button" class="tab" id="tabSignup" role="tab" aria-selected="false">Create Account</button>
+      </div>
+      <div><h1 id="formTitle">Welcome back</h1><p class="subtitle" id="formSubtitle">Sign in to continue to your CareConnect account.</p></div>
+
+      <form id="loginForm">
+        <div class="field"><label for="loginPhone">Email address or mobile number</label><div class="input-wrap"><i class="fa-solid fa-user"></i><input id="loginPhone" name="identifier" type="text" autocomplete="username" placeholder="Email or 10-digit mobile number" required></div></div>
+        <div class="field"><label for="loginPassword">Password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required><button class="toggle-password" type="button" data-toggle="loginPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button></div></div>
+        <div class="row-between"><label class="remember"><input type="checkbox" id="rememberMe"> Keep me signed in</label><button class="link" type="button" id="forgotLink">Forgot password?</button></div>
+        <button class="primary" type="submit" id="loginBtn"><span>Sign In Securely</span><i class="fa-solid fa-arrow-right"></i></button>
+        <p class="message" id="loginMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <form id="signupForm" class="hidden">
+        <div class="field"><label for="signupName">Full name</label><div class="input-wrap"><i class="fa-solid fa-user"></i><input id="signupName" name="name" type="text" autocomplete="name" placeholder="Enter your full name" minlength="2" maxlength="100" required></div></div>
+        <div class="field"><label for="signupEmail">Email address</label><div class="input-wrap"><i class="fa-solid fa-envelope"></i><input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required></div></div>
+        <div class="field"><label for="signupPhone">Mobile number</label><div class="input-wrap"><i class="fa-solid fa-phone"></i><input id="signupPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required></div></div>
+        <div class="field"><label for="signupRole">Account role</label><div class="input-wrap"><i class="fa-solid fa-user-doctor"></i><select id="signupRole" name="role" required><option value="patient">Patient</option><option value="doctor">Doctor</option><option value="driver">Ambulance Driver</option><option value="pharmacy">Pharmacy</option><option value="bloodbank">Blood Bank</option></select></div></div>
+        <div class="field hidden" id="doctorSpecialtyWrap"><label for="signupSpecialty">Medical specialty</label><div class="input-wrap"><i class="fa-solid fa-stethoscope"></i><input id="signupSpecialty" type="text" placeholder="e.g. General Physician"></div></div>
+        <div class="field hidden" id="driverDetailsWrap"><label for="signupVehicle">Ambulance vehicle number</label><div class="input-wrap"><i class="fa-solid fa-truck-medical"></i><input id="signupVehicle" type="text" placeholder="e.g. MH12AB1234"></div><label for="signupArea" style="margin-top:10px">Service area</label><input id="signupArea" type="text" placeholder="e.g. Nanded"></div>
+        <div class="field hidden" id="pharmacyNameWrap"><label for="signupShop">Pharmacy name</label><input id="signupShop" type="text" placeholder="Shop name"></div>
+        <div class="field hidden" id="bloodBankNameWrap"><label for="signupBank">Blood bank name</label><input id="signupBank" type="text" placeholder="Blood bank name"></div>
+        <div class="field"><label for="signupPassword">Create password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required><button class="toggle-password" type="button" data-toggle="signupPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button></div></div>
+        <p style="font-size:11px;color:#94a3b8;margin:-5px 0 13px">Use at least 8 characters and include a number.</p>
+        <button class="primary" type="submit" id="signupBtn"><span>Create My Account</span><i class="fa-solid fa-user-plus"></i></button>
+        <p class="message" id="signupMessage" role="status" aria-live="polite"></p>
+      </form>
+      <p class="security-note">Never share your password or verification code. Only use verified healthcare information.</p>
+    </section>
+  </main>
+
+  <div class="modal" id="forgotModal" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+    <div class="modal-card">
+      <button class="close" type="button" id="closeForgot" aria-label="Close">&times;</button>
+      <div id="resetRequestPanel"><h2 id="forgotTitle">Reset password</h2><p>Choose where to receive your OTP. Email uses Twilio Verify Email; phone uses Twilio Verify SMS.</p>
+        <form id="requestResetForm">
+          <div class="field"><label for="resetChannel">OTP delivery method</label><select id="resetChannel"><option value="email">Email OTP (recommended)</option><option value="sms">Phone SMS OTP</option></select></div>
+          <div class="field" id="forgotEmailWrap"><label for="forgotEmail">Registered email address</label><div class="input-wrap"><i class="fa-solid fa-envelope"></i><input id="forgotEmail" type="email" autocomplete="email" placeholder="you@example.com" required></div></div>
+          <div class="field hidden" id="forgotPhoneWrap"><label for="forgotPhone">Registered mobile number</label><div class="input-wrap"><i class="fa-solid fa-phone"></i><input id="forgotPhone" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number"></div></div>
+          <button class="primary" type="submit" id="requestResetBtn">Send Email OTP</button><p class="message" id="requestMessage" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div id="resetVerifyPanel" class="hidden"><h2>Set new password</h2><p>Enter the 6-digit OTP and choose a new password.</p>
+        <form id="resetPasswordForm"><div class="field"><label for="resetOtp">Verification code</label><div class="input-wrap"><i class="fa-solid fa-key"></i><input id="resetOtp" inputmode="numeric" maxlength="6" placeholder="6-digit OTP" required></div></div><div class="field"><label for="newPassword">New password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="newPassword" type="password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" required><button class="toggle-password" type="button" data-toggle="newPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button></div></div><button class="primary" type="submit" id="resetPasswordBtn">Update password</button><p class="message" id="resetMessage" role="status" aria-live="polite"></p></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Frontend is served by the same Node backend, so use same-origin API routes.
+    const API_BASE = window.location.origin;
+    const ROUTES = {
+      login: "/api/auth/login",
+      register: "/api/auth/register",
+      requestReset: "/api/auth/forgot-password",
+      resetPassword: "/api/auth/reset-password"
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const loginForm = $("loginForm"), signupForm = $("signupForm");
+    const tabLogin = $("tabLogin"), tabSignup = $("tabSignup");
+    const modal = $("forgotModal");
+
+    function setMessage(id, text, type = "") {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = text;
+      el.className = "message" + (type ? " " + type : "");
+    }
+
+    function showTab(which) {
+      const isLogin = which === "login";
+      loginForm.classList.toggle("hidden", !isLogin);
+      signupForm.classList.toggle("hidden", isLogin);
+      tabLogin.classList.toggle("active", isLogin);
+      tabSignup.classList.toggle("active", !isLogin);
+      tabLogin.setAttribute("aria-selected", String(isLogin));
+      tabSignup.setAttribute("aria-selected", String(!isLogin));
+      $("formTitle").textContent = isLogin ? "Welcome back" : "Create your account";
+      $("formSubtitle").textContent = isLogin
+        ? "Sign in to continue to your CareConnect account."
+        : "Register to access CareConnect services.";
+      setMessage("loginMessage", "");
+      setMessage("signupMessage", "");
+    }
+    tabLogin.addEventListener("click", () => showTab("login"));
+    tabSignup.addEventListener("click", () => showTab("signup"));
+    function updateRoleFields() {
+      const role = $("signupRole").value;
+      [["doctorSpecialtyWrap", role === "doctor"], ["driverDetailsWrap", role === "driver"], ["pharmacyNameWrap", role === "pharmacy"], ["bloodBankNameWrap", role === "bloodbank"]].forEach(([id, show]) => $(id).classList.toggle("hidden", !show));
+      $("signupSpecialty").required = role === "doctor";
+      $("signupShop").required = role === "pharmacy";
+      $("signupBank").required = role === "bloodbank";
+    }
+    $("signupRole").addEventListener("change", updateRoleFields);
+    updateRoleFields();
+
+    document.querySelectorAll("[data-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = $(button.dataset.toggle);
+        if (!input) return;
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        button.setAttribute("aria-label", show ? "Hide password" : "Show password");
+        const icon = button.querySelector("i");
+        if (icon) icon.className = show ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+      });
+    });
+
+    async function postJson(path, payload) {
+      let response;
+      try {
+        response = await fetch(API_BASE + path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(payload)
+        });
+      } catch (error) {
+        throw new Error("Backend se connection nahi ho pa raha. Check karo ki backend port 5000 par running hai.");
+      }
+      const raw = await response.text();
+      let data = {};
+      try { data = raw ? JSON.parse(raw) : {}; }
+      catch { data = { message: raw || "Server ne unreadable response diya." }; }
+      if (!response.ok) {
+        throw new Error(data.message || data.error || `Request failed (${response.status}). Backend route aur terminal logs check karo.`);
+      }
+      return data;
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setMessage("loginMessage", "");
+      if (!loginForm.reportValidity()) return;
+      const button = $("loginBtn");
+      button.disabled = true;
+      try {
+        const data = await postJson(ROUTES.login, {
+          identifier: $("loginPhone").value.trim(),
+          password: $("loginPassword").value
+        });
+        if (!data.token || !data.user) throw new Error("Login response mein token/user nahi mila. Backend response check karo.");
+        localStorage.setItem("careconnect_token", data.token);
+        localStorage.setItem("careconnect_user", JSON.stringify(data.user));
+        setMessage("loginMessage", "Login successful! Dashboard khul raha hai...", "success");
+        window.location.replace("pages/dashboard.html");
+      } catch (error) {
+        setMessage("loginMessage", error.message, "error");
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    signupForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setMessage("signupMessage", "");
+      if (!signupForm.reportValidity()) return;
+      const password = $("signupPassword").value;
+      if (!/\d/.test(password)) {
+        setMessage("signupMessage", "Password mein kam se kam ek number hona chahiye.", "error");
+        return;
+      }
+      const button = $("signupBtn");
+      button.disabled = true;
+      try {
+        const data = await postJson(ROUTES.register, {
+          name: $("signupName").value.trim(),
+          phone: $("signupPhone").value.trim(),
+          email: $("signupEmail").value.trim().toLowerCase(),
+          role: $("signupRole").value,
+          password,
+          specialty: $("signupSpecialty").value.trim(),
+          vehicle_number: $("signupVehicle").value.trim(),
+          area: $("signupArea").value.trim(),
+          shop_name: $("signupShop").value.trim(),
+          bank_name: $("signupBank").value.trim()
+        });
+        if (!data.token || !data.user) throw new Error("Account bana, lekin login token nahi mila. Ab login form se sign in karo.");
+        localStorage.setItem("careconnect_token", data.token);
+        localStorage.setItem("careconnect_user", JSON.stringify(data.user));
+        setMessage("signupMessage", "Account created successfully! Dashboard khul raha hai...", "success");
+        window.location.replace("pages/dashboard.html");
+      } catch (error) {
+        setMessage("signupMessage", error.message, "error");
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    $("forgotLink").addEventListener("click", () => {
+      $("resetRequestPanel").classList.remove("hidden");
+      $("resetVerifyPanel").classList.add("hidden");
+      setMessage("requestMessage", "");
+      setMessage("resetMessage", "");
+      modal.classList.add("open");
+      const loginIdentifier = $("loginPhone").value.trim();
+      $("forgotEmail").value = loginIdentifier.includes("@") ? loginIdentifier : "";
+      $("forgotPhone").value = /^\d{10}$/.test(loginIdentifier) ? loginIdentifier : "";
+      updateResetChannel();
+    });
+    function updateResetChannel() {
+      const emailMode = $("resetChannel").value === "email";
+      $("forgotEmailWrap").classList.toggle("hidden", !emailMode);
+      $("forgotPhoneWrap").classList.toggle("hidden", emailMode);
+      $("forgotEmail").required = emailMode;
+      $("forgotPhone").required = !emailMode;
+      $("requestResetBtn").textContent = emailMode ? "Send Email OTP" : "Send SMS OTP";
+    }
+    $("resetChannel").addEventListener("change", updateResetChannel);
+    updateResetChannel();
+    function closeModal() { modal.classList.remove("open"); }
+    $("closeForgot").addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+
+    $("requestResetForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setMessage("requestMessage", "");
+      if (!$("requestResetForm").reportValidity()) return;
+      const button = $("requestResetBtn");
+      button.disabled = true;
+      try {
+        const channel = $("resetChannel").value;
+        const identifier = channel === "email" ? $("forgotEmail").value.trim().toLowerCase() : $("forgotPhone").value.trim();
+        const data = await postJson(ROUTES.requestReset, { channel, identifier });
+        sessionStorage.setItem("careconnect_reset_channel", channel);
+        sessionStorage.setItem("careconnect_reset_identifier", identifier);
+        setMessage("requestMessage", data.message || "If this contact is registered, an OTP has been sent.", "success");
+        $("resetRequestPanel").classList.add("hidden");
+        $("resetVerifyPanel").classList.remove("hidden");
+      } catch (error) {
+        setMessage("requestMessage", error.message, "error");
+      } finally { button.disabled = false; }
+    });
+
+    $("resetPasswordForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setMessage("resetMessage", "");
+      if (!$("resetPasswordForm").reportValidity()) return;
+      const button = $("resetPasswordBtn");
+      button.disabled = true;
+      try {
+        const data = await postJson(ROUTES.resetPassword, {
+          channel: sessionStorage.getItem("careconnect_reset_channel") || $("resetChannel").value,
+          identifier: sessionStorage.getItem("careconnect_reset_identifier") || ($("resetChannel").value === "email" ? $("forgotEmail").value.trim().toLowerCase() : $("forgotPhone").value.trim()),
+          code: $("resetOtp").value.trim(),
+          otp: $("resetOtp").value.trim(),
+          newPassword: $("newPassword").value
+        });
+        setMessage("resetMessage", data.message || "Password updated. Ab naye password se login karo.", "success");
+        $("resetPasswordForm").reset();
+        setTimeout(() => { closeModal(); showTab("login"); }, 1200);
+      } catch (error) {
+        setMessage("resetMessage", error.message, "error");
+      } finally { button.disabled = false; }
+    });
+  </script>
+</body>
+</html>

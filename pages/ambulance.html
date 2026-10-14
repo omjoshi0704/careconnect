@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Emergency Ambulance | Care Connect</title><link rel="stylesheet" href="../css/style.css"></head>
+<body><div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="../home.html"><span class="brand-icon">♥</span><span>Care Connect<small>Smart Healthcare Ecosystem</small></span></a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+  <nav class="desktop-nav"><a href="../home.html">Home</a><a href="doctors.html">Doctors</a><a href="hospitals.html">Hospitals</a><a class="active" href="ambulance.html">Emergency</a><a href="profile.html">Profile</a></nav>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../home.html">⌂ Home</a><a href="dashboard.html">📊 My Dashboard</a><a href="doctors.html">🩺 Doctors</a><a href="hospitals.html">🏥 Hospitals</a><a href="ambulance.html">🚑 Emergency</a><a href="pharmacy.html">💊 Pharmacy</a><a href="labs.html">🧪 Labs</a><a href="reports.html">📄 Records</a><a href="profile.html">👤 Profile</a>
+</div>
+<main>
+  <div class="page-title"><span class="label" style="color:var(--coral)">AI patient routing • demo</span><h1 style="color:var(--ink)">Emergency ambulance</h1><p>Requests are saved by the CareConnect backend. This prototype does not yet provide verified live dispatch or emergency notifications. For a real emergency in India, call 112.</p></div>
+
+  <!-- one-tap SOS, mirrors the reference video -->
+  <div class="card" style="margin-bottom:18px">
+    <div class="sos-wrap">
+      <div class="sos-coords" id="sosCoords">📍 Locating you…</div>
+      <div><button class="sos-btn" onclick="sendSOS()">SOS</button></div>
+      <p style="max-width:360px;margin:0 auto">Press and hold in a real emergency. Here, one tap sends a demo alert to the nearest ambulance.</p>
+    </div>
+    <div id="sosIdle"></div>
+    <div id="sosResult" hidden>
+      <div class="eta-mini" style="max-width:340px;margin:18px auto 0">
+        <span>🚑</span><div><b>Ambulance CC-AMB-217 notified</b><small>Estimated arrival: <strong>8 mins</strong></small></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ambulanceForm" class="content-grid">
+    <div class="card ambulance-box">
+      <div class="ambulance-icon">🚑</div>
+      <h2>Request an ambulance</h2>
+      <p>Enter a pickup location and emergency type. Sign in as a patient first. This prototype records requests but does not dispatch an ambulance.</p>
+      
+      <div class="field"><label>Current pickup location</label><input id="location" placeholder="Enter address or landmark" autocomplete="street-address"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 14px"><button class="btn btn-secondary" type="button" onclick="useCurrentLocation()">Use my current location</button><a id="mapLink" class="btn btn-secondary" href="https://www.openstreetmap.org/search?query=Nanded%2C%20Maharashtra" target="_blank" rel="noopener noreferrer">Open map</a></div>
+      <p id="locationHelp" role="status" style="font-size:13px;color:var(--muted)">Location access is optional. Check the address before submitting.</p>
+      <div class="field"><label>Emergency type</label><select id="emergencyType"><option>Accident</option><option>Breathing problem</option><option>Chest pain</option><option>Other</option></select></div>
+      <button class="btn btn-danger full" onclick="requestAmbulance()">🚑 Request ambulance</button>
+    </div>
+    <div class="map-box">
+      <div class="map-label" style="top:15px;left:15px">📍 Patient</div>
+      <div class="map-label" style="bottom:18px;right:15px">🚑 Ambulance route</div>
+      <div class="map-pin" style="top:40%;left:53%"><span>📍</span></div>
+      <div class="map-pin" style="top:65%;left:25%;background:var(--teal)"><span>🚑</span></div>
+    </div>
+  </div>
+
+  <div id="ambulanceResult" hidden>
+    <div class="content-grid">
+      <div class="success-box">
+        <div class="check">✓</div>
+        <h2>Ambulance request sent</h2>
+        <p>Your request status will be shown here. This is not a verified live dispatch service.</p>
+        <div class="eta-mini"><span>🚑</span><div><b>Request status</b><small>No verified live ETA is available.</small></div></div>
+        <a class="btn btn-primary" href="../home.html">Back to dashboard</a>
+      </div>
+      <div class="map-box">
+        <div class="map-label" style="top:15px;left:15px">Request recorded — no live route</div>
+        <div class="map-pin" style="top:48%;left:48%;background:var(--teal)"><span>🚑</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="card">
+      <h2>Nearby ambulances</h2>
+      <div class="doctor-list" id="ambulanceList"></div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand"><span class="brand-icon">♥</span>Care Connect</div>
+      <p>A student front-end project reimagining a connected healthcare experience — doctors, hospitals, pharmacy, labs and emergency ambulance care in one simple dashboard.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick links</h3>
+      <a href="doctors.html">Doctors</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="ambulance.html">Emergency</a>
+      <a href="pharmacy.html">Pharmacy</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact (demo)</h3>
+      <p>📍 Pusad, Maharashtra, India<br>✉ demo@careconnect.app<br>📞 +91 90000 00000</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Care Connect — front-end project prototype, not a real healthcare service. Built by <strong>Om Joshi</strong> as a college project.</div>
+</footer>
+</div>
+<script src="../js/data.js"></script><script src="../js/auth.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.getElementById("ambulanceList").innerHTML = `<div class="card"><p>Live ambulance provider availability is not shown yet. Fictional/demo ambulance entries have been removed from the interface.</p></div>`; /* demo list intentionally disabled */
+/* document.getElementById("ambulanceList").innerHTML = ambulances.map(a => `
+  <div class="doctor-mini">
+    <div class="avatar">🚑</div>
+    <div class="info"><b>${a.id}</b><small>Driver ${a.driver} • ${a.distance} away</small></div>
+    <span class="available">ETA ${a.eta}</span>
+  </div>`).join(""); */
+
+const coord = document.getElementById("sosCoords"); if (coord) coord.textContent = "Location not acquired. Enter your pickup location.";
+const pickup=document.getElementById("location");
+const mapLink=document.getElementById("mapLink");
+if (pickup && mapLink) pickup.addEventListener("input",()=>{mapLink.href="https://www.openstreetmap.org/search?query="+encodeURIComponent(pickup.value.trim()||"Nanded, Maharashtra");});
+function useCurrentLocation(){
+  const help=document.getElementById("locationHelp");
+  if(!navigator.geolocation){if(help)help.textContent="This browser does not support location. Enter your address manually.";return;}
+  if(help)help.textContent="Requesting location permission…";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(6), lon=pos.coords.longitude.toFixed(6);
+    if(pickup)pickup.value=`GPS coordinates: ${lat}, ${lon}`;
+    if(mapLink)mapLink.href=`https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=16/${lat}/${lon}`;
+    if(help)help.textContent="Location added. Please verify it on the map before sending the request.";
+    if(coord)coord.textContent=`Location captured: ${lat}, ${lon}`;
+  },err=>{if(help)help.textContent=err.code===1?"Location permission was denied. Enter your address manually.":"Could not get location. Enter your address manually.";},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+}
+</script>
+</body></html>
